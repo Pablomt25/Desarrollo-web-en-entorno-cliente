@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Information</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <td>Screen Width:</td>
+        <td id="widthValue"></td>
+    </tr>
+
+    <tr>
+        <td>Screen Height:</td>
+        <td id="heightValue"></td>
+    </tr>
+
+    <tr>
+        <td>Available Screen Width:</td>
+        <td id="availWidthValue"></td>
+    </tr>
+
+    <tr>
+        <td>Available Screen Height:</td>
+        <td id="availHeightValue"></td>
+    </tr>
+</table>
+
+<script>
+    var widthCell = document.getElementById("widthValue");
+    var heightCell = document.getElementById("heightValue");
+    var availWidthCell = document.getElementById("availWidthValue");
+    var availHeightCell = document.getElementById("availHeightValue");
+
+    widthCell.innerHTML = screen.width;
+    heightCell.innerHTML = screen.height;
+    availWidthCell.innerHTML = screen.availWidth;
+    availHeightCell.innerHTML = screen.availHeight;
+</script>
+
+</body>
+</html>
