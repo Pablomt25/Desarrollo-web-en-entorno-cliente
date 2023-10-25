@@ -4,105 +4,58 @@ window.onload = () => {
 }
 
 function asociarEventos() {
-    function coloresAleatorios(ids) {
+    function coloresAleatorios(cantidad) {
         function random(number) {
             return Math.floor(Math.random() * (number + 1));
         }
 
-        const numeroAleatorio = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+        const elementosSeleccionables = document.querySelectorAll(".id");
 
+        const numeroAleatorio = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
         document.querySelector(".titulos h1").textContent = numeroAleatorio;
 
-        const indiceAleatorio = random(ids.length - 1);
-        ids[indiceAleatorio].style.backgroundColor = numeroAleatorio;
+        const indiceAleatorio = random(cantidad - 1);
 
-        ids.forEach((id, index) => {
-            if (index !== indiceAleatorio) {
-                const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
-                id.style.backgroundColor = rndCol;
+        elementosSeleccionables.forEach((id, index) => {
+            if (index === indiceAleatorio) {
+                id.style.backgroundColor = numeroAleatorio;
+            } else {
+                id.style.backgroundColor = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
             }
+
+            id.addEventListener("click", () => {
+                if (id.style.backgroundColor === numeroAleatorio) {
+                    elementosSeleccionables.forEach((element) => {
+                        element.style.backgroundColor = numeroAleatorio;
+                    });
+                }
+            });
         });
     }
 
-    const easy = document.getElementById("easy");
-    const hard = document.getElementById("hard");
-    const ids = document.querySelectorAll(".id");
     const newColorsLink = document.getElementById("newColors");
+    const easyButton = document.getElementById("easy");
+    const hardButton = document.getElementById("hard");
 
     newColorsLink.addEventListener("click", () => {
-        coloresAleatorios(ids);
+        coloresAleatorios(3);
     });
-    coloresAleatorios(ids);
+    coloresAleatorios(6);
 
-    easy.addEventListener("click", () => {
+    easyButton.addEventListener("click", () => {
         mostrarElementos(3);
     });
 
-    hard.addEventListener("click", () => {
+    hardButton.addEventListener("click", () => {
         mostrarElementos(6);
     });
 
     function mostrarElementos(cantidad) {
-        const ids = document.querySelectorAll(".id");
-
-        ids.forEach((id, index) => {
-            id.style.display = index < cantidad ? "block" : "none";
+        const elementosSeleccionables = document.querySelectorAll(".id");
+        elementosSeleccionables.forEach((element, index) => {
+            element.style.display = index < cantidad ? "block" : "none";
         });
-    }window.onload = () => {
-    console.log("Página cargada");
-    asociarEventos();
-}
 
-function asociarEventos() {
-    function coloresAleatorios(ids) {
-        function random(number) {
-            return Math.floor(Math.random() * (number + 1));
-        }
-
-        const numeroAleatorio = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
-
-        document.querySelector(".titulos h1").textContent = numeroAleatorio;
-
-        const elementosSeleccionables = document.querySelectorAll(".selectable");
-        const indiceAleatorio = random(elementosSeleccionables.length - 1);
-        const elementoEspecial = elementosSeleccionables[indiceAleatorio];
-        elementoEspecial.style.backgroundColor = numeroAleatorio;
-        elementoEspecial.setAttribute("data-color", numeroAleatorio);
-
-        elementosSeleccionables.forEach((id, index) => {
-            if (index !== indiceAleatorio) {
-                const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
-                id.style.backgroundColor = rndCol;
-                id.setAttribute("data-color", rndCol);
-            }
-        });
+        coloresAleatorios(cantidad);
     }
-
-    const easy = document.getElementById("easy");
-    const hard = document.getElementById("hard");
-    const ids = document.querySelectorAll(".id");
-    const newColorsLink = document.getElementById("newColors");
-
-    newColorsLink.addEventListener("click", () => {
-        coloresAleatorios(ids);
-    });
-    coloresAleatorios(ids);
-
-    easy.addEventListener("click", () => {
-        mostrarElementos(3);
-    });
-
-    hard.addEventListener("click", () => {
-        mostrarElementos(6);
-    });
-
-    function mostrarElementos(cantidad) {
-        const elementosSeleccionables = document.querySelectorAll(".selectable");
-
-        elementosSeleccionables.forEach((id, index) => {
-            id.style.display = index < cantidad ? "block" : "none";
-        });
-    }
-}
-
 }
