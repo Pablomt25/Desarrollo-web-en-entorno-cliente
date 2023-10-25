@@ -32,4 +32,10 @@ body{
     background-color: rgb(255, 156, 156);
     width: 100px;
     height: 100px;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+#newColors{
+    padding-right: 150px;
 }
