@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="index.js"></script>
+
+    <style>
+        form {
+            background-color: white;
+            padding: 30px;
+        }
+
+        body {
+            background: linear-gradient(to bottom right, rgb(36, 36, 238), pink);
+            margin: 88px;
+            margin-left: 470px;
+            margin-right: 470px;
+        }
+
+        span {
+            color: blue;
+        }
+
+        .organizar {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .name-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .name-group label {
+            width: 48%; 
+        }
+
+        .hola {
+            display: flex;
+        }
+
+        .espacio {
+            margin-left: 95px;
+        }
+
+        /* Estilo para resaltar campos incorrectos */
+        .error {
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <form action="#" onsubmit="return validarFormulario()">
+        <h3>Welcome to Crowdrise</h3>
+        <p>Let's get you all set so you can verify your nonprofit and begin setting up your first campaign!</p>
+        <br>
+
+        <p>Already have an account? <span>Log in.</span></p>
+
+        <div class="organizar">
+            <div class="name-group">
+                <label for="first-name">First Name</label>
+                <label for="last-name">Last Name</label>
+            </div>
+
+            <div class="hola">
+                <input type="text" id="first-name">
+                <input type="text" id="last-name" class="espacio">
+            </div>
+
+            <div class="name-group">
+                <label for="phone">Phone</label>
+                <label for="email">Email</label >
+            </div>
+
+            <div class="hola">
+                <input type="tel" id="phone">
+                <input type="email" id="email" class="espacio">
+            </div>
+            
+            <div class="name-group">
+                <label for="password">Password</label>
+                <label for="confirm-password">Confirm Password</label>
+            </div>
+
+            <div class="hola">
+                <input type="password" id="password">
+                <input type="password" id="confirm-password" class="espacio">
+            </div>
+        </div>
+
+        <input type="checkbox" id="receive-emails">
+        <label for="receive-emails">Yes, I want to receive Crowdrive's emails</label><br>
+
+        <input type="checkbox" id="agree-terms">
+        <label for="agree-terms">I agree to the <span>Terms policy</span> and <span>Fees</span></label><br><br><br>
+
+        <input type="submit" value="Sign Up"><br>
+        <p>Don't work for a nonprofit? <span>You can fundraise for one.</span></p>
+    </form>
+</body>
+</html>

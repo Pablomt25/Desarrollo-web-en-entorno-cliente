@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="index.js"></script>
+    <style>
+        input{
+            text-align: center;
+            border-top:0px;
+            border-left: 0px;
+            border-right: 0px;
+            border-bottom: 1px solid white;
+            background-color: rgb(95, 140, 188);
+            font-size: 30px;
+            margin-bottom: 15px;
+
+        }
+        input::placeholder{
+            color: white;
+        }
+        
+        .boton{
+            background-color: white;
+            color: rgb(95, 140, 188);
+            font-size: 20px;
+            border-radius: 10px;
+            padding: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        body{
+            background-color: rgb(95, 140, 188);
+            text-align: center;
+            margin-top:15% ;
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="username" placeholder="Username">
+
+    <p id="mayuscula">- 1 letra mayuscula</p>
+    <p id="minuscula">- 1 letra minuscula</p>
+    <p id="longitud">- 6 carácteres mínimo</p>
+    <input type="submit" value="Enviar" class="boton">
+
+
+</body>
+</html>
