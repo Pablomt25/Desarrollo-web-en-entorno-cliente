@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Películas y Series</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="index.js"></script>
+</head>
+<body>
+    <div id="contenedor-buscador">
+        <form id="searchForm">
+            <label for="buscar">Buscar películas o series:</label>
+            <input type="text" id="buscador" required>
+            <br>
+            <button type="button" id="buscarTodo">Todos</button>
+            <button type="button" id="buscarPeliculas">Películas</button>
+            <button type="button" id="buscarSeries">Series</button>
+            <button type="button" id="crearInforme">Crear Informe</button>
+        </form>
+    </div>
+
+    <div id="pagina-principal"></div>
+
+    <div id="pagina-resultados">
+        <div id="resultados"></div>
+    </div>
+
+    <div id="modal-detalle" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="cerrar" id="cerrarModalDetalles">&times;</span>
+            <div id="detalle-contenido"></div>
+        </div>
+    </div>
+</body>
+</html>

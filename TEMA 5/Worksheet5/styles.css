@@ -1,0 +1,57 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f6f6f6;
+    margin: 0;
+}
+
+#nota {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#contenedor-notas {
+    display: flex;
+    flex-direction: column-reverse; /* Para que las notas más recientes estén arriba */
+}
+
+.nota {
+    position: absolute;
+    border: 1px solid #ddd;
+    padding-bottom: 90px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: rgb(228, 244, 110);
+    cursor: move;
+}
+
+.cabecera-nota {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titulo-nota {
+    font-weight: bold;
+}
+
+.contenido-nota {
+    margin-top: 5px;
+}
+
+.btn-eliminar {
+    background-color: #ff6666;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn-eliminar:hover {
+    background-color: #ff5050;
+}

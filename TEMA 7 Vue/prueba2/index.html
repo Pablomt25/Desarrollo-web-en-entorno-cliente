@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        
+        <button v-if="!mostrar" @click="mostrar=true">Mostrar formulario</button>
+        <div v-if="mostrar">
+        <h1 v-if="mostrar">Esto es Vue!</h1>
+        <button @click="añadirArray">Meter a array</button>
+        <input type="text" v-model="nuevo">
+        
+        <ul>
+            <li v-for="item in array">
+                {{ item }}
+            </li>
+        </ul>
+    </div>
+    </div>
+    
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    nuevo: '',
+                    array: [],
+                    mostrar: false,
+                    
+                }
+            },
+            methods: {
+                añadirArray() {
+                    this.array.push(this.nuevo);
+                    this.nuevo = '';
+                    this.mostrar = true;
+                    
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

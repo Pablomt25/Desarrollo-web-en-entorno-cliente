@@ -1,0 +1,22 @@
+  <main class="main">
+  <div>
+      <h1>Hello, {{ nombre }}</h1>
+      <h1>Nombre {{title}}</h1>
+      <p>Congratulations! Your app is running. 🎉</p>
+      <div><img src="{{urlImagen}}" alt=""></div>
+      <button *ngIf="title" (click)="cambiarTitulo()">Cambiar Titulo</button>
+      <input (keyup)="pulsadaTecla()" [(ngModel)]="title" type="text">
+    </div>
+    <div class="divider" role="separator" aria-label="Divider"></div>
+</main>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+<router-outlet></router-outlet>

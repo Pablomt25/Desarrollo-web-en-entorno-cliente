@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gráficas con Google Charts</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawCharts);
+
+        function drawCharts() {
+            var dataPartidos = google.visualization.arrayToDataTable([
+                ['Partido', 'Escaños'],
+                ['Partido A', 100],
+                ['Partido B', 80],
+                ['Partido C', 60],
+                ['Partido D', 40],
+            ]);
+
+            var optionsPartidosBar = {
+                title: 'Distribución de Escaños en el Congreso por Partidos (Gráfico de Barras)',
+                chartArea: {width: '50%'},
+                hAxis: {title: 'Escaños'},
+                vAxis: {title: 'Partido'}
+            };
+
+            var chartPartidosBar = new google.visualization.BarChart(document.getElementById('chartPartidosBar'));
+            chartPartidosBar.draw(dataPartidos, optionsPartidosBar);
+
+            var optionsPartidosPie = {
+                title: 'Distribución de Escaños en el Congreso por Partidos (Gráfico de Sectores)',
+            };
+
+            var chartPartidosPie = new google.visualization.PieChart(document.getElementById('chartPartidosPie'));
+            chartPartidosPie.draw(dataPartidos, optionsPartidosPie);
+        }
+    </script>
+</head>
+<body>
+    <div id="chartPartidosBar" style="width: 50%; height: 300px;"></div>
+    <div id="chartPartidosPie" style="width: 50%; height: 300px;"></div>
+</body>
+</html>

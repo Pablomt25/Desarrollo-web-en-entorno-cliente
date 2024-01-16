@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tienda Increíble</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <div v-if="cargando" class="container">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <header v-if="!cargando">
+            <h1>Bienvenido a Mi Tienda</h1>
+            <div>
+                <label for="sort">Ordenar por:</label>
+                <select id="sort" v-model="ordenarPor" @change="ordenarProductos">
+                    <option value="precioAsc">Precio (ascendente)</option>
+                    <option value="precioDesc">Precio (descendente)</option>
+                    <option value="nombreAsc">Nombre (ascendente)</option>
+                    <option value="nombreDesc">Nombre (descendente)</option>
+                </select>
+            </div>
+            <div>
+                <label for="categorias">Categorías:</label>
+                <select id="categorias" v-model="categoriaSeleccionada" @change="filtrarProductos">
+                    <option value="">Selecciona Categoría</option>
+                    <option v-for="category in categorias" :key="category">{{ category }}</option>
+                </select>
+            </div>
+            <div>
+                <button @click="toggleCarrito">🛒 Carrito ({{ totalItemsEnCarrito }})</button>
+            </div>
+        </header>
+
+        <main>
+            <ul v-if="!mostrarDetalle && !mostrarCarrito && !cargando">
+                <li v-for="product in productosFiltrados" :key="product.id">
+                    <img :src="product.image" alt="Imagen del Producto" style="max-width: 100px; max-height: 100px;">
+                    <div>
+                        <p>{{ product.title }}</p>
+                        <p>Precio: ${{ product.price }}</p>
+                        <button @click="verDetalle(product)">Ver Detalle</button>
+                        <button @click="agregarAlCarrito(product)">Añadir al Carrito</button>
+                    </div>
+                </li>
+            </ul>
+
+            <div v-if="mostrarDetalle && !cargando">
+                <h2>Detalles del Producto</h2>
+                <img :src="productoSeleccionado.image" alt="Imagen del Producto"
+                    style="max-width: 200px; max-height: 200px;">
+                <p><strong>Nombre:</strong> {{ productoSeleccionado.title }}</p>
+                <p><strong>Precio:</strong> ${{ productoSeleccionado.price }}</p>
+                <p><strong>Descripción:</strong> {{ productoSeleccionado.description }}</p>
+                <p><strong>Categoría:</strong> {{ productoSeleccionado.category }}</p>
+
+                <button @click="comprarProducto">Comprar Ahora</button>
+                <button @click="cerrarDetalle">Cerrar Detalle</button>
+            </div>
+
+            <div v-if="mostrarCarrito && !cargando">
+                <h2>Carrito de Compras</h2>
+                <ul>
+                    <li v-for="item in carrito" :key="item.id">
+                        <p>
+                            {{ item.title }} -
+                            Cantidad: <input type="number" v-model="item.cantidad"
+                                @input="actualizarTotalCarrito(item.id)" min="1">
+                            - Precio: ${{ item.price * item.cantidad }}
+                            <button @click="eliminarDelCarrito(item.id)">Eliminar</button>
+                        </p>
+                    </li>
+                </ul>
+                <p>Total del Carrito: ${{ totalCarrito }}</p>
+                <button @click="realizarPedido" :disabled="carrito.length === 0">Realizar Pedido</button>
+                <button @click="cerrarCarrito">Cerrar Carrito</button>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer__sections">
+            <div class="footer__section">
+                <h4>Ayuda</h4>
+                <p>Preguntas frecuentes</p>
+                <p>Atención al cliente</p>
+            </div>
+
+            <div class="footer__section">
+                <h4>Nosotros</h4>
+                <p>Misión y visión</p>
+                <p>Equipo</p>
+            </div>
+
+            <div class="footer__section">
+                <h4>Legal</h4>
+                <p>Términos y condiciones</p>
+                <p>Política de privacidad</p>
+            </div>
+
+            <div class="footer__section">
+                <h4>Métodos de pago</h4>
+                <p><a href="#" target="_blank" title="Instagram"><i class="fa fa-cc-paypal" aria-hidden="true"></i></a>
+                </p>
+                <p><a href="#" target="_blank" title="mastercard"><i class="fa fa-cc-mastercard"
+                            aria-hidden="true"></i></a></p>
+                <p><a href="#" target="_blank" title="visa"><i class="fa fa-cc-visa" aria-hidden="true"></i>
+                    </a></p>
+            </div>
+        </div>
+
+        <div class="social-icons">
+            <a href="#" target="_blank" title="Facebook"><i class="fa fa-facebook"></i></a>
+            <a href="#" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a>
+            <a href="#" target="_blank" title="Youtube"><i class="fa fa-youtube"></i></a>
+        </div>
+    </footer>
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    productos: [],
+                    categorias: [],
+                    categoriaSeleccionada: "",
+                    mostrarDetalle: false,
+                    productoSeleccionado: {},
+                    ordenarPor: "",
+                    carrito: [],
+                    totalItemsEnCarrito: 0,
+                    totalCarrito: 0,
+                    cargando: true,
+                    mostrarCarrito: false,
+                };
+            },
+            mounted() {
+                this.fetchProducts().then(data => {
+                    this.productos = data;
+                    this.actualizarCategorias();
+                    this.ordenarProductos();
+                    this.cargando = false;
+                });
+            },
+            computed: {
+                productosFiltrados() {
+                    if (!this.categoriaSeleccionada) {
+                        return this.productos;
+                    }
+                    return this.productos.filter(product => product.category === this.categoriaSeleccionada);
+                },
+            },
+            methods: {
+                fetchProducts() {
+                    return fetch('https://fakestoreapi.com/products')
+                        .then(response => response.json());
+                },
+                actualizarCategorias() {
+                    this.categorias = [];
+                    for (let i = 0; i < this.productos.length; i++) {
+                        const category = this.productos[i].category;
+                        if (!this.categorias.includes(category)) {
+                            this.categorias.push(category);
+                        }
+                    }
+                },
+                filtrarProductos() {
+                    this.actualizarTotalItemsEnCarrito();
+                    this.actualizarTotalCarrito();
+                },
+                agregarAlCarrito(producto) {
+                    const productoEnCarrito = this.carrito.find(item => item.id === producto.id);
+
+                    if (productoEnCarrito) {
+                        productoEnCarrito.cantidad++;
+                    } else {
+                        this.carrito.push({
+                            id: producto.id,
+                            title: producto.title,
+                            price: producto.price,
+                            cantidad: 1,
+                        });
+                    }
+
+                    this.actualizarTotalItemsEnCarrito();
+                    this.actualizarTotalCarrito();
+                },
+                realizarPedido() {
+                    this.carrito = [];
+                    this.actualizarTotalItemsEnCarrito();
+                    this.actualizarTotalCarrito();
+                },
+                verDetalle(producto) {
+                    this.mostrarDetalle = true;
+                    this.productoSeleccionado = producto;
+                },
+                cerrarDetalle() {
+                    this.mostrarDetalle = false;
+                    this.productoSeleccionado = {};
+                },
+                ordenarProductos() {
+                    switch (this.ordenarPor) {
+                        case 'precioAsc':
+                            this.productos.sort((a, b) => a.price - b.price);
+                            break;
+                        case 'precioDesc':
+                            this.productos.sort((a, b) => b.price - a.price);
+                            break;
+                        case 'nombreAsc':
+                            this.productos.sort((a, b) => a.title.localeCompare(b.title));
+                            break;
+                        case 'nombreDesc':
+                            this.productos.sort((a, b) => b.title.localeCompare(a.title));
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                toggleCarrito() {
+                    this.mostrarCarrito = !this.mostrarCarrito;
+                },
+                cerrarCarrito() {
+                    this.mostrarCarrito = false;
+                },
+                actualizarTotalItemsEnCarrito() {
+                    this.totalItemsEnCarrito = this.carrito.reduce((total, item) => total + item.cantidad, 0);
+                },
+                actualizarTotalCarrito() {
+                    this.totalCarrito = this.carrito.reduce((total, item) => total + (item.price * item.cantidad), 0);
+                },
+                actualizarTotalCarrito(idProducto) {
+                    const item = this.carrito.find(item => item.id === idProducto);
+                    this.totalCarrito = this.carrito.reduce((total, item) => total + (item.price * item.cantidad), 0);
+                },
+                eliminarDelCarrito(idProducto) {
+                    this.carrito = this.carrito.filter(item => item.id !== idProducto);
+                    this.actualizarTotalItemsEnCarrito();
+                    this.actualizarTotalCarrito();
+                },
+            },
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gráficas con Google Charts</title>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(initialize);
+    
+            function initialize() {
+                var dataPartidos = google.visualization.arrayToDataTable([
+                    ['Partido', 'Escaños'],
+                    ['Partido A', 100],
+                    ['Partido B', 80],
+                    ['Partido C', 60],
+                    ['Partido D', 40],
+                ]);
+    
+                var optionsPartidosBar = {
+                    title: 'Distribución de Escaños en el Congreso por Partidos (Gráfico de Barras)',
+                    chartArea: {width: '50%'},
+                    hAxis: {title: 'Escaños'},
+                    vAxis: {title: 'Partido'}
+                };
+    
+                var chartPartidosBar = new google.visualization.BarChart(document.getElementById('chartPartidosBar'));
+                chartPartidosBar.draw(dataPartidos, optionsPartidosBar);
+    
+                setTimeout(animateChart, 10000);
+            }
+    
+            function animateChart() {
+                var newData = google.visualization.arrayToDataTable([
+                    ['Partido', 'Escaños'],
+                    ['Partido A', 50],
+                    ['Partido B', 40],
+                    ['Partido C', 30],
+                    ['Partido D', 10],
+                ]);
+    
+                var optionsPartidosBar = {
+                    title: 'Distribución de Escaños en el Congreso por Partidos (Gráfico de Barras)',
+                    chartArea: {width: '50%'},
+                    hAxis: {title: 'Escaños'},
+                    vAxis: {title: 'Partido'}
+                };
+    
+                var chartPartidosBar = new google.visualization.BarChart(document.getElementById('chartPartidosBar'));
+                chartPartidosBar.draw(newData, optionsPartidosBar);
+    
+                setTimeout(animateChart, 10000);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="chartPartidosBar" style="width: 50%; height: 300px;"></div>
+    </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Proyecto Vue</h1>
+        <button @click="añadirTarea">Añadir tarea</button>
+        <input type="text" v-model="nuevo" placeholder="¿Qué quieres recordar?"><br>
+
+        <button @click="borrarTareasCompletadas">Borrar tareas completadas</button>
+
+        <label>Filtrar por nombre:</label>
+        <input type="text" v-model="filtroNombre">
+        
+        <p>{{ numeroTareas }} tareas</p>
+        
+        <ul>
+            <li v-for="(tarea, pos) in tareasFiltradas" :key="pos" :class="{ 'completed': tarea.completada }">
+                <input type="checkbox" v-model="tarea.completada"> 
+                {{ tarea.nombre }} - Prioridad: {{ tarea.prioridad }}
+                <button @click="cambiarPrioridad(pos, 'alta')">Alta</button>
+                <button @click="cambiarPrioridad(pos, 'normal')">Normal</button>
+                <button @click="cambiarPrioridad(pos, 'baja')">Baja</button>
+                <button @click="borrar(pos)">Borrar</button>
+            </li>
+        </ul>
+    </div>
+    
+    <script>
+        const { createApp } = Vue
+
+        createApp({
+            data() {
+                return {
+                    nuevo: '',
+                    tareas: JSON.parse(localStorage.getItem('tareas')) || [],
+                    filtroNombre: '',
+                    numeroTareas: 0,
+                }
+            },
+            methods: {
+                añadirTarea() {
+                    this.tareas.push({ nombre: this.nuevo, completada: false, prioridad: 'normal' });
+                    this.nuevo = '';
+                    this.actualizarNumeroTareas();
+                    localStorage.setItem('tareas', JSON.stringify(this.tareas));
+                },
+
+                borrar(posElemento) {
+                    this.tareas.splice(posElemento, 1);
+                    this.actualizarNumeroTareas();
+                    localStorage.setItem('tareas', JSON.stringify(this.tareas));
+                },
+
+                borrarTareasCompletadas() {
+                    this.tareas = this.tareas.filter(tarea => !tarea.completada);
+                    this.actualizarNumeroTareas();
+                    localStorage.setItem('tareas', JSON.stringify(this.tareas));
+                },
+
+                cambiarPrioridad(pos, nuevaPrioridad) {
+                    this.tareas[pos].prioridad = nuevaPrioridad;
+                    localStorage.setItem('tareas', JSON.stringify(this.tareas));
+                },
+
+                actualizarNumeroTareas() {
+                    this.numeroTareas = this.tareas.length;
+                },
+            },
+            computed: {
+                tareasFiltradas() {
+                    return this.tareas
+                        .filter(tarea => tarea.nombre.toLowerCase().includes(this.filtroNombre.toLowerCase()))
+                        .sort((a, b) => {
+                            if (a.prioridad === "alta" && b.prioridad !== "alta") return -1;
+                            else if (a.prioridad !== "alta" && b.prioridad === "alta") return 1;
+                            else if (a.prioridad === "normal" && b.prioridad === "baja") return -1;
+                            else if (a.prioridad === "baja" && b.prioridad === "normal") return 1;
+                            else return 0;
+                        });
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

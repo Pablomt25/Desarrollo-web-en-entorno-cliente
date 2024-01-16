@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+
+    <span v-html="message"></span>
+    <h1>{{ titulo }}</h1>
+    <h3>{{ num }}</h3>
+    <p>
+    <button @click="num='25'">Cambiar numero</button>
+    <input type="text" v-model="num">
+    </p>
+    <button @click="num='25'">Cambiar numero</button>
+
+
+    </div>
+    
+
+<script>
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        message: '<b>Esto es una prueba!</b>',
+        titulo: 'Esto es el titulo',
+        num: 21
+      }
+    },
+    methods:{
+        cambiarNombre(){
+          console.log(this.num);
+        },otrometodo(){
+          
+        }
+    }
+  }).mount('#app')
+</script>
+</body>
+</html>
