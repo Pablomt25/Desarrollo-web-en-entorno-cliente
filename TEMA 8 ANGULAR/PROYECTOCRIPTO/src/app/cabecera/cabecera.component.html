@@ -1,0 +1,13 @@
+<div class="cabecera">
+  <h1 routerLink="/">Criptomonedas</h1>
+  <nav *ngIf="!user; else loggedIn">
+    <a routerLink="/login">Iniciar Sesión</a>
+    <a routerLink="/register">Registro</a>
+  </nav>
+  <ng-template #loggedIn>
+    <span>Bienvenido, {{ user?.displayName || 'Usuario' }} </span>
+    <button (click)="cerrarSesion()">Cerrar Sesión</button>
+  </ng-template>
+  <a routerLink="/" routerLinkActive="activeLink">Inicio</a>
+  <a routerLink="/portfolio" routerLinkActive="activeLink">Portfolio</a>
+</div>

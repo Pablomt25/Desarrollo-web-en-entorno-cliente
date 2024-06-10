@@ -1,9 +1,11 @@
 <script setup>
-    function verUsuarios(){
-        
-    }
+
 </script>
 
 <template>
-    ¡Bienvenido Administrador!
+  <div>
+    <h1>¡Bienvenido Administrador!</h1>
+
+    <h2>Lista de Notas:</h2>
+  </div>
 </template>

@@ -1,0 +1,11 @@
+<button (click)="obtenerDetalle(id)">Componente detalle con parametro id={{id}}</button>
+<div *ngIf="ajax.datosDetalle">
+  <ul>
+    <li>Nombre: {{ajax.datosDetalle.name}}</li>
+    <li>Id: {{ajax.datosDetalle.id}}</li>
+    <img [src]="ajax.datosDetalle.image.small" alt="">
+    <li>Símbolo: {{ajax.datosDetalle.symbol}}</li>
+    <li>Descripción: {{ajax.datosDetalle.description.es}}</li>
+    <li>Repos URL GitHub: {{ajax.datosDetalle.links.repos_url.github}}</li>
+  </ul>
+</div>

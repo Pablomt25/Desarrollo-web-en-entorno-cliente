@@ -1,0 +1,1 @@
+Aunque tiene funciones para multiusuario como iniciar sesión de diferentes maneras, no esta la aplicación terminada del todo, la palicación solo sirve en monousuario.

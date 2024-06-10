@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import {FormsModule} from '@angular/forms';
-
+import { CabeceraComponent } from './cabecera/cabecera.component';
+import { DetalleComponent } from './detalle/detalle.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule],
+  imports: [CommonModule, RouterOutlet, FormsModule, CabeceraComponent, DetalleComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 
 export class AppComponent implements OnInit {
-  title = 'hola';
+  title = 'Pablo';
   nombre = 'Pablo';
   urlImagen = 'https://angular.io/assets/images/logos/angular/logo-nav@2x.png';
 
@@ -25,7 +26,11 @@ export class AppComponent implements OnInit {
   }
 
   pulsadaTecla(){
-    console.log("HAs pulsado una tecla");
+    console.log("Has pulsado una tecla");
     
+  }
+
+  trataEventoDeHijo(datoRecibido:string){
+    console.log("Salta evento con dato = " + datoRecibido);
   }
 }

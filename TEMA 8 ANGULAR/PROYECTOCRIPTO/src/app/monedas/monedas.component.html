@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h2>Criptomonedas Seguidas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Símbolo</th>
+                    <th>Precio USD</th>
+                    <th>Capitalización USD</th>
+                    <th>Volumen USD</th>
+                    <th>Valores más altos (24h)</th>
+                    <th>Valores más bajos (24h)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let criptomoneda of criptomonedasSeleccionadas" (click)="mostrarDetalle(criptomoneda.id)">
+                    <td><img [src]="criptomoneda.image" alt="{{ criptomoneda.name }}" width="50"></td>
+                    <td (click)="mostrarDetalle(criptomoneda.id)">{{ criptomoneda.name }}</td>
+                    <td>{{ criptomoneda.symbol }}</td>
+                    <td>{{ criptomoneda.current_price }}</td>
+                    <td>{{ criptomoneda.market_cap }}</td>
+                    <td>{{ criptomoneda.total_volume }}</td>
+                    <td>{{ criptomoneda.high_24h }}</td>
+                    <td>{{ criptomoneda.low_24h }}</td>
+                    <td>
+                        <button (click)="dejarDeSeguir(criptomoneda.id)">Dejar de Seguir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

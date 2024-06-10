@@ -1,0 +1,69 @@
+<div *ngIf="criptomonedasSeguidas.length > 0">
+    <h2>Criptomonedas Seguidas</h2>
+    <table>
+      <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Precio en Euros</th>
+            <th>Capitalización en Euros</th>
+            <th>Volumen en Euros</th>
+            <th>Más alto en 24 horas</th>
+            <th>Más bajo en 24 horas</th>
+            <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let criptomoneda of criptomonedasSeguidas">
+          <td><img [src]="criptomoneda.image" alt="Imagen de {{ criptomoneda.name }}" width="50" height="50"></td>
+          <td>{{ criptomoneda.name }}</td>
+          <td>{{ criptomoneda.current_price }}</td>
+          <td>{{ criptomoneda.market_cap }}</td>
+          <td>{{ criptomoneda.total_volume }}</td>
+          <td>{{ criptomoneda.high_24h }}</td>
+          <td>{{ criptomoneda.low_24h }}</td>
+          <td>
+            <button (click)="dejarDeSeguirCriptomoneda(criptomoneda)">Dejar de seguir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+<div>
+    <h2>Las 50 criptomonedas principales</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Precio en Euros</th>
+          <th>Capitalización en Euros</th>
+          <th>Volumen en Euros</th>
+          <th>Más alto en 24 horas</th>
+          <th>Más bajo en 24 horas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let criptomoneda of criptomonedas" (click)="navegarADetalle(criptomoneda.id)">
+          <td><img [src]="criptomoneda.image" alt="Imagen de {{ criptomoneda.name }}" width="50" height="50"></td>
+          <td>{{ criptomoneda.name }}</td>
+          <td>{{ criptomoneda.current_price }}</td>
+          <td>{{ criptomoneda.market_cap }}</td>
+          <td>{{ criptomoneda.total_volume }}</td>
+          <td>{{ criptomoneda.high_24h }}</td>
+          <td>{{ criptomoneda.low_24h }}</td>
+          <td>
+            <button *ngIf="!esCriptomonedaSeguida(criptomoneda)" (click)="seguirCriptomoneda(criptomoneda)">Seguir</button>
+            <button *ngIf="esCriptomonedaSeguida(criptomoneda)" (click)="dejarDeSeguirCriptomoneda(criptomoneda)">Dejar de seguir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  

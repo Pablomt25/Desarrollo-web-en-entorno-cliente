@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "cryptotracker-26b1a": {
+      "hosting": {
+        "my-app": [
+          "cryptotracker-26b1a"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "cryptotracker-26b1a"
+  }
+}

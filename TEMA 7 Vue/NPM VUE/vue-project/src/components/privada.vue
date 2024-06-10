@@ -1,51 +1,79 @@
 <script setup>
-import { useCollection } from 'vuefire'
-import { collection, addDoc, updateDoc, deleteDoc, where } from 'firebase/firestore'
-import { doc } from "firebase/firestore";
+import { ref, onMounted } from 'vue';
+import { getAuth } from 'firebase/auth';
 import { useFirestore } from 'vuefire';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { query } from 'firebase/database';
+import { collection, addDoc, deleteDoc, updateDoc, query, where, getDocs, doc } from 'firebase/firestore';
+import { useCollection } from 'vuefire';
+import { uploadBytes, getDownloadURL } from 'firebase/storage';
+import '../assets/main2.css';
 
-let db = useFirestore(); 
-const todos = useCollection(collection(db, 'todos'))
+const auth = getAuth();
+const user = auth.currentUser;
+const db = useFirestore();
+const notas = useCollection(collection(db, 'notas'));
+const contadorNotas = ref(0);
 
-let contenidoNota = "";
-let file = "";
+const cargarNotas = async () => {  //Se ejecuta cuando el componente está montado
+  if (user) {
+    const notasCollection = collection(db, 'notas');
+    const q = query(notasCollection, where('uid', '==', user.uid)); //consulta para obtener solo las notas asociadas al usuario actual
+    const resultados = await getDocs(q); //Contiene los resultados
 
-let coleccion = Collection(db, 'list');
-let uid = null;
-const list = useCollection(query(coleccion, where("idUsuario", "==", "dvsdvsdvv")));
+    notas.value = resultados.docs.map((doc) => ({ id: doc.id, ...doc.data() })); //Mapea los documentos en la colección a un array de objetos que incluyen el ID del documento y los datos del documento. Este array se asigna a notas.value.
+    contadorNotas.value = notas.value.length;  // Establece el valor de contadorNotas en la longitud del array de notas, que representa el número de notas.
+  }
+};
+onMounted(cargarNotas);
 
-function altaNota(){
-  const storage = getStorage();
-  const storageRef = ref(storage, file.name);
-  
-  uploadBytes(storageRef, file).then(snapshot => {
-    return getDownloadURL(snapshot.ref);
-  }).then(DownloadURL => {
-    console.log('URL de descarga', DownloadURL);
-    const docRef = addDoc(collection(db, "todos"), {
-      texto: contenidoNota,
-      prioridad: "baja",
-      adjunto: DownloadURL
-    }).then((e) => console.log(e.id));
-  });
+const obtenerNombreArchivo = (url) => {
+  const partesUrl = url.split('/');
+  return partesUrl[partesUrl.length - 1];
+};
 
-  console.log(contenidoNota);
+let contenidoNota = ref('');
+
+function agregarNota() {
+  if (user) {
+    const notasCollection = collection(db, 'notas');
+    addDoc(notasCollection, { uid: user.uid, texto: contenidoNota.value, prioridad: 'baja', adjunto: '' })
+      .then(() => {
+        contenidoNota.value = '';
+      })
+      .catch(error => {
+        console.error('Error al agregar nota:', error.message);
+      });
+  }
 }
 
-function eliminarNota(id){
-  deleteDoc(doc(db, "todos", id));
+function eliminarNota(id) {
+  if (user) {
+    const notasCollection = collection(db, 'notas');
+    console.log('Eliminando nota con ID:', id);
+    deleteDoc(doc(notasCollection, id));
+  }
 }
 
-function subirPrioridadNota(id){
-  updateDoc(doc(db, "todos", id), {
-    prioridad: "alta"
-  });
+function actualizarPrioridadNota(id, nuevaPrioridad) {
+  if (user) {
+    const notasCollection = collection(db, 'notas');
+    console.log('Actualizando prioridad de nota con ID:', id, 'a:', nuevaPrioridad);
+    updateDoc(doc(notasCollection, id), { prioridad: nuevaPrioridad });
+  }
 }
 
-function subirAdjunto(e){
-    file = e.target.files[0];
+function subirAdjunto(e, id) {
+  const file = e.target.files[0];
+  if (user) {
+    const storageRef = storageRef(storage, file.name);
+
+    uploadBytes(storageRef, file).then(snapshot => {
+      return getDownloadURL(snapshot.ref);
+    }).then(DownloadURL => {
+      console.log('URL de descarga', DownloadURL);
+      const notasCollection = collection(db, 'notas');
+      updateDoc(doc(notasCollection, id), { adjunto: DownloadURL });
+    });
+  }
 }
 
 </script>
@@ -57,14 +85,17 @@ function subirAdjunto(e){
     <label for="subirArchivo">Adjuntar Archivo</label>
     <input type="file" id="subirArchivo" multiple @change="subirAdjunto">
 
-    <button @click="altaNota">Nueva nota</button> 
-
+    <button @click="agregarNota">Nueva nota</button>
+    <div>Numero de notas: {{ contadorNotas }}</div>
     <ul>
-      <li v-for="todo in todos" :key="todo.id">
-        <span>{{ todo.texto }} - {{ todo.prioridad }} - {{ todo.adjunto }}</span>
-        <button @click="eliminarNota(todo.id)">Eliminar</button>
-        <button @click="subirPrioridadNota(todo.id)">Subir prioridad</button>
+      <li v-for="nota in notas" :key="nota.id">
+        <span>{{ nota.texto }} - {{ nota.prioridad }} - <a :href="nota.adjunto" target="_blank">{{
+          obtenerNombreArchivo(nota.adjunto) }}</a></span>
+        <button @click="eliminarNota(nota.id)">Eliminar</button>
+        <button @click="actualizarPrioridadNota(nota.id, 'alta')">Subir prioridad</button>
       </li>
     </ul>
   </div>
 </template>
+
+

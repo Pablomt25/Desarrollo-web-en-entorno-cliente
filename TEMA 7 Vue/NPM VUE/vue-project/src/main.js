@@ -1,73 +1,62 @@
-import './assets/main.css'
+import './assets/main.css';
+import { createApp } from 'vue';
+import App from './App.vue';
+import { VueFire, VueFireAuth } from 'vuefire';
+import { firebaseApp } from './firebase';
 
-import { createApp } from 'vue'
-import App from './App.vue'
-import { VueFire, VueFireAuth } from 'vuefire'
-import { firebaseApp } from './firebase'
-
-import privada from './components/privada.vue' 
-import inicio from './components/inicio.vue'
-import administrador from './components/administrador.vue'
-import {createRouter,createWebHistory } from 'vue-router'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import privada from './components/privada.vue';
+import inicio from './components/inicio.vue';
+import administrador from './components/administrador.vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const routes = [
   { path: '/', component: inicio },
   { path: '/privada', component: privada },
   { path: '/administrador', component: administrador },
-]
+  { path: '/', component: inicio }
+];
 
 const router = createRouter({
-  // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
   history: createWebHistory(),
-  routes, // short for `routes: routes`
-})
+  routes,
+});
 
-router.beforeEach((to,from) =>{
-  if(to.path=="/privada" && !estasIdentificado)
-    return false;
-  else
-  return true;
-})
-
-router.beforeEach((to,from) =>{
-  if(to.path=="/administrador" && !estasIdentificado)
-    return false;
-  else
-  return true;
-})
-
-let estasIdentificado=false;
+let estasIdentificado = false;
+let esAdministrador = false; // Variable para verificar si el usuario es administrador
 
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
     const uid = user.uid;
-    console.log('se ha iniciado sesion');
+    console.log('Se ha iniciado sesión');
     estasIdentificado = true;
-    // ...
+    esAdministrador = user.email === 'administrador@gmail.com'; // Verifica si el usuario es administrador
+
+    // Redirigir a la página de área privada
+    router.push('/privada');
   } else {
-    console.log('se ha cerrado sesion');
-    // User is signed out
-    // ...
+    console.log('Se ha cerrado sesión');
     estasIdentificado = false;
+    esAdministrador = false;
   }
 });
 
+router.beforeEach((to, from, next) => {
+  if (to.path === '/privada' && !estasIdentificado) {
+    next('/');
+  } else if (to.path === '/administrador' && (!estasIdentificado || !esAdministrador)) {
+    next('/');
+  } else {
+    next();
+  }
+});
 
-const app = createApp(App)
+const app = createApp(App);
 app.use(router);
 app.use(VueFire, {
-  // imported above but could also just be created here
   firebaseApp,
-  modules: [
-    // we will see other modules later on
-    VueFireAuth(),
-  ],
-})
+  modules: [VueFireAuth()],
+});
 
-app.mount('#app')
-
-
+app.mount('#app');

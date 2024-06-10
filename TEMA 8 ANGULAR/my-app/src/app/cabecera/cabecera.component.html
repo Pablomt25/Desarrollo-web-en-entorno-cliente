@@ -1,1 +1,16 @@
-<p>cabecera works!</p>
+<p>Lista Item</p>
+<ul>
+
+  <button (click)="mostrarDetalle(3)">Detalle 3</button>
+  <button (click)="mostrarDetalle(6)">Detalle 6</button>
+
+  <button (click)="obtenDatos()">AJAX</button>
+  <li *ngFor="let Criptomoneda of ajax.datosAPI; let i=index" (click)="borrarValor(i)">{{ Criptomoneda.name | uppercase }}</li>
+</ul>
+<input type="text" [ngModel]="contenidoInput" (ngModelChange)="contenidoInput = $event">
+<button (click)="nuevoValor()">Agregar</button>
+
+<nav>
+    <a href="button" routerLink="detalle" RouterLinkActive="activeButton">Detalle</a>
+    <a href="button" routerLink="cabecera" RouterLinkActive="activeButton">Cabecera</a>
+</nav>

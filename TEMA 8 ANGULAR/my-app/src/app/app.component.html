@@ -1,4 +1,10 @@
-  <main class="main">
+
+
+
+<main class="main">
+
+  <app-cabecera (lanzadaPeticionEvent)="trataEventoDeHijo($event)"></app-cabecera>
+  <app-detalle [id]="title"></app-detalle>
   <div>
       <h1>Hello, {{ nombre }}</h1>
       <h1>Nombre {{title}}</h1>
@@ -6,6 +12,8 @@
       <div><img src="{{urlImagen}}" alt=""></div>
       <button *ngIf="title" (click)="cambiarTitulo()">Cambiar Titulo</button>
       <input (keyup)="pulsadaTecla()" [(ngModel)]="title" type="text">
+      
+
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
 </main>

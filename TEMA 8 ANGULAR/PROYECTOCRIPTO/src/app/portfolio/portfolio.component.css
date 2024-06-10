@@ -1,0 +1,17 @@
+h2{
+    text-align: center;
+    padding: 20px;
+}
+
+th{
+    padding: 15px;
+}
+td{
+    padding: 15px;
+    margin-left: 40px;
+}
+
+table{
+    margin-left: 160px;
+    cursor: pointer;
+}

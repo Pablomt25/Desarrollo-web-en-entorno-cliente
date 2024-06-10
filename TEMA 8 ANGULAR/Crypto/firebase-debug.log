@@ -1,0 +1,94 @@
+[debug] [2024-02-01T16:49:24.541Z] ----------------------------------------------------------------------
+[debug] [2024-02-01T16:49:24.543Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Pablo Moreno\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2024-02-01T16:49:24.543Z] CLI Version:   13.1.0
+[debug] [2024-02-01T16:49:24.543Z] Platform:      win32
+[debug] [2024-02-01T16:49:24.543Z] Node Version:  v20.10.0
+[debug] [2024-02-01T16:49:24.544Z] Time:          Thu Feb 01 2024 17:49:24 GMT+0100 (hora estándar de Europa central)
+[debug] [2024-02-01T16:49:24.544Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-02-01T16:49:24.600Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-02-01T16:49:24.601Z] > authorizing via signed-in user (pablomorenotiradomt25@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Pablo Moreno
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-02-01T16:49:25.436Z] Using project from CLI flag: proyecto-tienda-cd6d0
+[debug] [2024-02-01T16:49:25.438Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 [none]
+[debug] [2024-02-01T16:49:25.738Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 200
+[debug] [2024-02-01T16:49:25.739Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 {"projectId":"proyecto-tienda-cd6d0","projectNumber":"376324922700","displayName":"Proyecto Tienda","name":"projects/proyecto-tienda-cd6d0","resources":{"hostingSite":"proyecto-tienda-cd6d0","storageBucket":"proyecto-tienda-cd6d0.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_f9bea6bb-139a-4c66-b144-e5a6126000d1"}
+[info] i  Using project proyecto-tienda-cd6d0 (Proyecto Tienda) 
+[info] 
+=== Hosting Setup
+[debug] [2024-02-01T16:49:25.743Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 [none]
+[debug] [2024-02-01T16:49:25.934Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 200
+[debug] [2024-02-01T16:49:25.934Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 {"projectId":"proyecto-tienda-cd6d0","projectNumber":"376324922700","displayName":"Proyecto Tienda","name":"projects/proyecto-tienda-cd6d0","resources":{"hostingSite":"proyecto-tienda-cd6d0","storageBucket":"proyecto-tienda-cd6d0.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_f9bea6bb-139a-4c66-b144-e5a6126000d1"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2024-02-01T16:51:48.372Z] ----------------------------------------------------------------------
+[debug] [2024-02-01T16:51:48.374Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Pablo Moreno\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init hosting
+[debug] [2024-02-01T16:51:48.374Z] CLI Version:   13.1.0
+[debug] [2024-02-01T16:51:48.374Z] Platform:      win32
+[debug] [2024-02-01T16:51:48.375Z] Node Version:  v20.10.0
+[debug] [2024-02-01T16:51:48.375Z] Time:          Thu Feb 01 2024 17:51:48 GMT+0100 (hora estándar de Europa central)
+[debug] [2024-02-01T16:51:48.375Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-02-01T16:51:48.423Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-02-01T16:51:48.423Z] > authorizing via signed-in user (pablomorenotiradomt25@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Pablo Moreno
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-02-01T16:51:50.196Z] Using project from CLI flag: proyecto-tienda-cd6d0
+[debug] [2024-02-01T16:51:50.198Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 [none]
+[debug] [2024-02-01T16:51:50.481Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 200
+[debug] [2024-02-01T16:51:50.481Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 {"projectId":"proyecto-tienda-cd6d0","projectNumber":"376324922700","displayName":"Proyecto Tienda","name":"projects/proyecto-tienda-cd6d0","resources":{"hostingSite":"proyecto-tienda-cd6d0","storageBucket":"proyecto-tienda-cd6d0.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_f9bea6bb-139a-4c66-b144-e5a6126000d1"}
+[info] i  Using project proyecto-tienda-cd6d0 (Proyecto Tienda) 
+[info] 
+=== Hosting Setup
+[debug] [2024-02-01T16:51:50.487Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 [none]
+[debug] [2024-02-01T16:51:50.671Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 200
+[debug] [2024-02-01T16:51:50.672Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/proyecto-tienda-cd6d0 {"projectId":"proyecto-tienda-cd6d0","projectNumber":"376324922700","displayName":"Proyecto Tienda","name":"projects/proyecto-tienda-cd6d0","resources":{"hostingSite":"proyecto-tienda-cd6d0","storageBucket":"proyecto-tienda-cd6d0.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_f9bea6bb-139a-4c66-b144-e5a6126000d1"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 

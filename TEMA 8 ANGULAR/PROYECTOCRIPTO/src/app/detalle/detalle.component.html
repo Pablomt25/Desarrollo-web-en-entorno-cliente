@@ -1,0 +1,21 @@
+<div *ngIf="ajax.datosDetalle">
+  <ul>
+    <li>Nombre: {{ ajax.datosDetalle.name }}</li>
+    <li>Id: {{ ajax.datosDetalle.id }}</li>
+    <img [src]="ajax.datosDetalle.image.small" alt="">
+    <li>Símbolo: {{ ajax.datosDetalle.symbol }}</li>
+    <li>Descripción: {{ obtenerDescripcion() }}</li>
+    <li>Repos URL GitHub: {{ ajax.datosDetalle.links.repos_url.github }}</li>
+  </ul>
+
+  <button (click)="volverAlPortfolio()">Volver al Portfolio</button>
+
+  <button (click)="seguirCriptomoneda()" *ngIf="!esCriptomonedaSeguida()">Seguir</button>
+
+</div>
+
+
+<div *ngIf="!ajax.datosDetalle">
+  <p>Detalles no disponibles.</p>
+  <button (click)="volverAlPortfolio()">Volver al Portfolio</button>
+</div>
